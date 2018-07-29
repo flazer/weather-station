@@ -18,4 +18,5 @@ If you are german, or understanding at least some parts of the language:
 
 Here is a video, showing how I build the stuff:
 
-Part 1: [https://youtu.be/KMwVNuzghsY](https://youtu.be/KMwVNuzghsY)
+Part 1: [https://youtu.be/KMwVNuzghsY](https://youtu.be/KMwVNuzghsY)  
+Part 2: [https://youtu.be/H0V1uFBAILE](https://youtu.be/H0V1uFBAILE)
