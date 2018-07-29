@@ -1,0 +1,127 @@
+
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+
+// Variables
+@import "variables";
+@import "fonts";
+
+// Vendors
+@import "vendor/weather-icons";
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+body, html {
+  background-color: $dark-grey;
+  color: $light-grey;
+  font-family: Raleway;
+  height: 100%;
+
+  .quickview {
+    cursor: pointer;
+    padding: 20px;
+    background-color: #40BEF6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:nth-child(2) {
+      background: #ffb33c;
+    }
+
+    &:nth-child(3) {
+      background: #2c6392;
+    }
+
+    &:nth-child(4) {
+      background: #ff934a;
+    }
+
+    &:nth-child(5) {
+      background: #4fb600;
+    }
+
+    &:nth-child(5) {
+      background: #3e7c35;
+    }
+
+    h1 {
+      font-weight: bold;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: normal;
+      letter-spacing: 0.6px;
+      text-align: center;
+      color: $light-grey;
+      font-size: 7rem;
+
+      @include media-breakpoint-down(xs) {
+        font-size: 5rem;
+      }
+    }
+
+    h2 {
+      font-size: 4rem;
+    }
+
+    h3 {
+      color: #2c6392;
+      font-size: 2.5rem;
+    }
+
+    .row {
+      font-size: 1.8rem;
+      margin-top: 35px;
+
+      @include media-breakpoint-down(xs) {
+        font-size: 1.4rem;
+        margin-top: 15px;
+      }
+
+      .additionals {
+        margin: 0 auto;
+
+        div {
+          display: inline-block;
+          margin: 0 15px;
+        }
+      }
+    }
+  }
+
+  #detailsModal {
+    h5 {
+      color: #343a40;
+    }
+
+    .modal-footer {
+      button {
+        span {
+          padding-right: 5px;
+        }
+      }
+    }
+  }
+
+  footer {
+    a {
+      display: block;
+      bottom: 4px;
+      right: 4px;
+      background: url(/img/donkey.svg);
+      width: 25px;
+      height: 36px;
+      margin-left: 1.2rem;
+      position: fixed;
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0.5;
+      transition: opacity .5s ease-out;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}
