@@ -27,12 +27,12 @@ var Engine = {
 
     observe: function() {
         $('.quickview').click(function(e) {
-            e.preventDefault();
+            event.preventDefault();
             Engine.loadDetails($(this));
         });
 
         $('#detailsModal .switch').click(function(e) {
-            e.preventDefault();
+            event.preventDefault();
             Engine.switchChart($(this));
         });
     },
