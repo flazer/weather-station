@@ -9,6 +9,18 @@
 > To save some time, I'm using [Laravel](https://laravel.com). It's a really nice framework, so I don't have to start completly from scratch. It's totally overpowered for this usecase and installs a lot of further dependencies, but at least it safed me a lot of time. 
 To run Laravel, you need to install [composer](https://getcomposer.org/download/) and [npm](https://nodejs.org/en/download/). To do so, please follow their instructions.
 
+## Requirements
+- PHP >= 7.1.3
+- OpenSSL PHP Extension
+- PDO PHP Extension
+- Mbstring PHP Extension
+- Tokenizer PHP Extension
+- XML PHP Extension
+- Ctype PHP Extension
+- JSON PHP Extension
+
+https://laravel.com/docs/5.6/installation#server-requirements
+
 ## Install
 
 > Clone this project and run "composer install" & "npm install".
@@ -18,6 +30,8 @@ To run Laravel, you need to install [composer](https://getcomposer.org/download/
 > Open .env and insert your MySQL-credentials.  
 
 > Now run "php artisan migrate" to write all necessary tables and "php artisan db:seed" to add standard-values to your db.
+
+> Run `npm run prod` to publish assets
   
 > Now you have to add your devices. To do so, open your database and insert them into 'devices'. Slug must be unqiue, name will be displayed in your dashboard. The token is stored as a md5-hash, so choose a token, hash it and insert it. If you want to sort your devices, please add a number to sort. Status is used to disable devices.  
 

@@ -7,6 +7,12 @@ The code is written to run on Wemos D1 devices (ESP8266 compatible).
 
 If you want to send your data via http(s)-request use the code in "client_http" otherwise there is also a mqtt-client.
 
+#### Let's Encrypt  
+  
+If you want to use SSL-Encryption via Let's Encrypt, you should use the code in _"client-https-root-ca"_.  
+This sketch verifies against the root CA, instead of your personal one. Otherwise you have to update and reupload your sketch
+every 3 month. This sketch is not tested very well. So if you find any bugs: Please fix and merge them. :)
+
 ## Dependencies
 
 The sketches have some dependencies.
