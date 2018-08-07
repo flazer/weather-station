@@ -111,12 +111,33 @@ void sendSensorData () {
   String payload = "token=" + token + "&temperature=" + String(temp) + "&humidity=" + String(hum) + "&pressure=" + String(pres);
   Serial.println("---");
   Serial.println("[HTTP] Start connection info request...");
-
-  Serial.println("[HTTP] Sending data.");
+  
+  
   HTTPClient http;
+  HTTPClient httpfingerprint;
   int httpCode = -1;
+
+  // Special Connection For Fingerprint
+  httpfingerprint.begin(fingerprinturl); //Specify the URL
+  int httpCodefinger = httpfingerprint.GET();
+
   if (ssl_enabled == true) {
-    http.begin(url, fingerprint);
+    if (sslfingerprint_enabled == true) {
+      Serial.println("[HTTP] Get Fingerprint.");
+      String fingerprintback = "";    
+      if (httpCodefinger > 0) { //Check for the returning code
+          fingerprintback = httpfingerprint.getString();
+          Serial.printf("[HTTP] GET Fingerprint... code: %d\n", httpCodefinger);
+          Serial.println("[HTTP] GET Fingerprint... Result: " + fingerprintback);
+      }else { 
+          Serial.println("Error on HTTP request"); 
+      }
+      httpfingerprint.end();
+      http.begin(url, fingerprintback);
+    }else{
+      Serial.println("[HTTP] Sending data.");
+      http.begin(url, fingerprint);
+    }
   } else {
     http.begin(url);
   }
@@ -173,7 +194,8 @@ void splashScreen() {
   Serial.println(espName);
   Serial.print("# Configured Endpoint: ");
   Serial.println(url);
+  Serial.print("# Configured Fingerprint Endpoint: ");
+  Serial.println(fingerprinturl);
   Serial.println("#######################################");
   for (int i=0; i<2; i++) Serial.println();
 }
-
