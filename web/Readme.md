@@ -39,6 +39,9 @@ https://laravel.com/docs/5.6/installation#server-requirements
 
 > If your page doesn't load, please check the rights or usergroups for laravel's storage-folders.
 
+__API URL__
+> The URL for the Controller to send Data is: http(s)://YOUR_WEBSERVER_IP_HOSTNAME/api/save
+
 ## Settings
 
 There are some possibilities to configure the dashboard.

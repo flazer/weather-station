@@ -33,5 +33,8 @@ PubSubClient - [https://github.com/knolleary/pubsubclient.git](https://github.co
 
 Open the project and edit the settings.h file to the belongings you need. There are some differences between these two versions, but I'm sure you will know what you have to edit, when you took at look.  
 
+__API URL__
+> The URL for the Controller to send Data is: http(s)://YOUR_WEBSERVER_IP_HOSTNAME/api/save
+
 ## Blabla
 Feel free to share, change and improve the code. 
