@@ -1,5 +1,8 @@
 require('./bootstrap');
 var Highcharts = require('highcharts');
+require('bootstrap-select');
+global.moment = require('moment');
+require('tempusdominus-bootstrap-4');
 
 
 $(function() {
@@ -10,6 +13,7 @@ var Engine = {
 
     devices: {},
     charts: {},
+    selection: {},
 
     init: function () {
         this.observe();
@@ -22,19 +26,47 @@ var Engine = {
             };
         });
 
+        this.datetimepickerConfigure();
+
         this.update();
     },
 
     observe: function() {
         $('.quickview').click(function(e) {
             e.preventDefault();
-            Engine.loadDetails($(this));
+            var device = $(this).find('.device').data('device');
+            if (device.length) {
+                Engine.detailsLoad(device);
+            }
         });
 
-        $('#detailsModal .switch').click(function(e) {
+        $('#detailsModal .selectpicker').change(function(e) {
             e.preventDefault();
-            Engine.switchChart($(this));
+            Engine.chartSwitch($(this));
         });
+
+        $('#detailsModal .selectpicker').change(function(e) {
+            e.preventDefault();
+            Engine.chartSwitch($(this));
+        });
+
+        $('#detailsModal select.date_group').change(function(e) {
+            e.preventDefault();
+            Engine.selection['group'] = $(this).val().trim();
+        });
+
+        $('#detailsModal button.btn.update').click(function(e) {
+            e.preventDefault();
+            var device = $('#detailsModal').attr('data-current-device');
+            if (device.length) {
+                Engine.detailsLoad(device);
+            }
+        });
+    },
+
+    dateSelectionHandle: function(ident, date) {
+        date = date.trim();
+        Engine.selection[ident] = date;
     },
 
     update: function () {
@@ -64,8 +96,8 @@ var Engine = {
 
         //don't wait for ajax, just start ticking...
         window.setTimeout(function() {
-         Engine.update();
-         },  1000);
+            Engine.update();
+        },  1000);
     },
 
     redraw: function(slug, data) {
@@ -108,18 +140,20 @@ var Engine = {
         }
     },
 
-    loadDetails: function(elem) {
-        var device = elem.find('.device').data('device');
+    detailsLoad: function(device) {
+        Engine.overlayLoading(true);
         $.ajax({
             type: "POST",
             url: "/api/details/",
             data: {
-                device: device
+                device: device,
+                selection: Engine.selection
             },
             success: function(res) {
                 if ('status' in res && res.status == 'OK') {
                     if ('data' in res) {
                         Engine.chartDraw(device, res.data);
+                        Engine.overlayLoading(false);
                     }
                 }
             },
@@ -131,30 +165,44 @@ var Engine = {
         });
     },
 
-    chartDraw: function(device, data) {
-        Engine.charts = data;
+    overlayLoading: function(enable) {
+        var elem = $('#detailsModal .modal-content .loading-overlay');
+        if (typeof enable === 'undefined' || enable == false) {
+            return elem.removeClass('active');
+        }
 
-        $("#detailsModal .type-switch button").each(function() {
-            var elem = $(this);
-            if (typeof data[elem.data('type')] == 'undefined') {
-                elem.addClass('d-none');
-            }
-        });
-
-        Engine.plotChart(data[Object.keys(data)[0]]);
-        $('#detailsModal').modal('show');
+        return elem.addClass('active');
     },
 
-    switchChart: function(elem) {
-        var charts = Engine.charts;
-        var type = elem.data('type');
+    chartDraw: function(device, res) {
 
-        if (type in charts) {
-            Engine.plotChart(charts[type]);
+        //Write selected dates in header
+        if ('selection' in res) {
+            Engine.datesSet(res.selection);
+            Engine.groupingSet(res.selection);
+        }
+
+        if ('datasets' in res) {
+            Engine.charts = res.datasets;
+            var data = res.datasets;
+            Engine.dropdownConfigure(data);
+            Engine.chartPlot(data[Object.keys(data)[0]]);
+            var elem = $('#detailsModal');
+            elem.attr('data-current-device', device);
+            elem.modal('show');
         }
     },
 
-    plotChart: function(data) {
+    chartSwitch: function(elem) {
+        var charts = Engine.charts;
+        var type = elem.val();
+
+        if (type in charts) {
+            Engine.chartPlot(charts[type]);
+        }
+    },
+
+    chartPlot: function(data) {
         var id = 'chart-container';
         var translations = $('#' + id).data('translations');
 
@@ -210,5 +258,77 @@ var Engine = {
                 data: data.values
             }]
         });
+    },
+
+    datetimepickerConfigure: function () {
+        $.fn.datetimepicker.Constructor.Default = $.extend({}, $.fn.datetimepicker.Constructor.Default, {
+            icons: {
+                date: 'icon-calendar',
+                up: 'icon-chevron-up',
+                down: 'icon-chevron-down',
+                previous: 'icon-chevron-left',
+                next: 'icon-chevron-right',
+                clear: 'icon-trash',
+                close: 'icon-folder-close'
+            } });
+        $(".input-group.date.datetimepicker").each(function() {
+            var format = 'YYYY-MM-DD';
+            var picker = $(this);
+            if (picker.data('format')) {
+                format = picker.data('format');
+            }
+            var options  = {
+                format: format,
+                maxDate: moment()
+            };
+            picker.datetimepicker(options);
+            picker.on("hide.datetimepicker", function (e) {
+                var elem = $(this).find('input.datetimepicker-input');
+                Engine.dateSelectionHandle(elem.attr('name'), moment(e.date).format('YYYY-MM-DD'));
+            });
+        });
+
+    },
+
+    datesSet: function(selection) {
+        //Write datetime dates into header
+        if ('datetime' in selection) {
+            if ($('#headingSelection h5 a').length) {
+                $('#headingSelection h5 a').html(selection.datetime.start_date + ' - ' + selection.datetime.end_date);
+            }
+        }
+
+        //Write dates into inputs
+        if('date' in selection) {
+            if ($('#dateStartInput').length && typeof selection.date.start_date !== 'undefined') {
+                $('#dateStartInput').val(selection.date.start_date);
+            }
+
+            if ($('#dateEndInput').length && typeof selection.date.end_date !== 'undefined') {
+                $('#dateEndInput').val(selection.date.end_date);
+            }
+        }
+    },
+
+    groupingSet: function(selection) {
+        if ('group' in selection) {
+            $('#detailsModal select.date_group').val(selection.group);
+        }
+    },
+
+    dropdownConfigure: function(data) {
+        var selectpicker = $('#detailsModal .dropdown select.selectpicker');
+        selectpicker.children('option').each(function() {
+            $(this).removeAttr("style");
+        });
+
+        selectpicker.children('option').each( function() {
+            var elem = $(this);
+            if (typeof data[elem.val()] == 'undefined') {
+                elem.css("display","none");
+            }
+        });
+
+        selectpicker.selectpicker('refresh');
     }
 };

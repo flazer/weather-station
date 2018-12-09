@@ -23,7 +23,7 @@
                 @yield('content')
             </main>
             <footer>
-                <a href="http://frozendonkey.com" target="_blank"></a>
+                <a href="https://frozendonkey.com" target="_blank"></a>
             </footer>
         </div>
     </body>

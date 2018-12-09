@@ -9,5 +9,13 @@ return [
     'details' => 'Details',
     'unknown' => 'Unknown',
     'lastUpdate' => 'Last Update',
-    'overview' => 'Overview'
+    'overview' => 'Overview',
+    'start' => 'Start',
+    'end' => 'End',
+    'grouping' => 'Grouping',
+    'hourly' => 'hourly',
+    'daily' => 'daily',
+    'weekly' => 'weekly',
+    'monthly' => 'monthly',
+    'update' => 'Update'
 ];

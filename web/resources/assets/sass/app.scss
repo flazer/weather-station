@@ -1,7 +1,3 @@
-
-// Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
-
 // Variables
 @import "variables";
 @import "fonts";
@@ -11,6 +7,8 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+@import '~bootstrap-select/sass/bootstrap-select';
+@import '~tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4';
 
 body, html {
   background-color: $dark-grey;
@@ -95,10 +93,152 @@ body, html {
       color: #343a40;
     }
 
+    .modal-content {
+      .loading-overlay {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background-color: rgba(0,0,0, 0.4);
+        top: 0;
+        left: 0;
+        z-index: 2;
+        display: none;
+
+        &.active {
+          display: block;
+        }
+
+        .ani {
+          position: absolute;
+          width: 100px;
+          height: 70px;
+          margin: auto;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          right: 0;
+          text-align: center;
+
+          div {
+            background-color: $light-grey;
+            height: 100%;
+            width: 10px;
+            display: inline-block;
+            animation: waveStretchDelay 1.2s infinite ease-in-out;
+
+            &:nth-child(1) {
+              animation-delay: -1.2s;
+            }
+            &:nth-child(2) {
+              animation-delay: -1.1s;
+            }
+            &:nth-child(3) {
+              animation-delay: -1s;
+            }
+            &:nth-child(4) {
+              animation-delay: -0.9s;
+            }
+            &:nth-child(5) {
+              animation-delay: -0.8s;
+            }
+
+            @keyframes waveStretchDelay {
+              0%, 40%, 100% {
+                transform: scaleY(0.4);
+              }
+              20% {
+                transform: scaleY(1);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .modal-body {
+      .card {
+        .card-header {
+          padding: 5px 1.25rem;
+
+          h5 {
+            font-size: 1.1em;
+
+            @include media-breakpoint-down(xs) {
+              font-size: 1em;
+            }
+
+            a {
+              display: block;
+              color: $dark-grey !important;
+              text-decoration: none !important;
+              text-align: center;
+            }
+          }
+
+          [data-toggle="collapse"]:after {
+            font-family: 'FontAwesome';
+            content: "\f053";
+            float: right;
+            color: $dark-btn;
+            font-size: 18px;
+            line-height: 22px;
+            transform: rotate(-90deg);
+            transition: transform .3s ease-in-out;
+          }
+
+          [data-toggle="collapse"].collapsed:after {
+            transform: rotate(90deg);
+          }
+        }
+
+        .card-body {
+          text-align: center;
+
+          .form-group {
+            text-align: left;
+            display: inline-block;
+
+            label {
+              color: $dark-btn;
+            }
+
+            input, select, button {
+              outline: none !important;
+              box-shadow: none !important;
+            }
+
+            @include media-breakpoint-down(md) {
+              &:nth-child(-n+3) {
+                display: block;
+              }
+            }
+          }
+        }
+      }
+    }
+
     .modal-footer {
-      button {
+
+      .dropdown {
+        &.bootstrap-select {
+          outline: none !important;
+        }
+
         span {
-          padding-right: 5px;
+          &.wi {
+            padding-right: 5px;
+          }
+        }
+
+        button {
+          &:focus {
+            outline: none !important;
+            box-shadow: none !important;
+          }
+
+          i {
+            padding-right: 5px;
+          }
         }
       }
     }

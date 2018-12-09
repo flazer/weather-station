@@ -9,5 +9,13 @@ return [
     'details' => 'Details',
     'unknown' => 'Unbekannt',
     'lastUpdate' => 'Letzte Aktualisierung',
-    'overview' => 'Übersicht'
+    'overview' => 'Übersicht',
+    'start' => 'Start',
+    'end' => 'Ende',
+    'grouping' => 'Gruppierung',
+    'hourly' => 'stündlich',
+    'daily' => 'täglich',
+    'weekly' => 'wöchentlich',
+    'monthly' => 'monatlich',
+    'update' => 'Aktualisieren'
 ];

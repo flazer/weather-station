@@ -29,9 +29,18 @@
     </div>
 
     <div class="modals">
-        <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModal" aria-hidden="true">
+        <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" data-current-device="" aria-labelledby="detailsModal" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
+                    <div class="loading-overlay">
+                        <div class="ani">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
                     <div class="modal-header">
                         <h5 class="modal-title">@lang('main.details')</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="@lang('main.close')">
@@ -39,14 +48,62 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        <div id="accordion">
+                            <div class="card">
+                                <div class="card-header" id="headingSelection">
+                                    <h5 class="mb-0">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseDateSelection" aria-expanded="false" class="collapsed">
+                                        </a>
+                                    </h5>
+                                </div>
+                                <div id="collapseDateSelection" class="collapse" aria-labelledby="headingSelection" data-parent="#accordion">
+                                    <div class="card-body justify-content-between">
+                                        <div class="form-group">
+                                            <label for="dateStartInput">@lang('main.start')</label>
+                                            <div class="input-group date datetimepicker" id="datetimepicker_start" data-format="{{config('sensors.format_datepicker')}}" data-target-input="nearest">
+                                                <input id="dateStartInput" type="text" class="form-control datetimepicker-input" name="date_start" data-target="#datetimepicker_start"/>
+                                                <div class="input-group-append" data-target="#datetimepicker_start" data-toggle="datetimepicker">
+                                                    <div class="input-group-text"><i class="icon-calendar"></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="dateEndInput">@lang('main.end')</label>
+                                            <div class="input-group date datetimepicker" id="datetimepicker_end" data-format="{{config('sensors.format_datepicker')}}" data-target-input="nearest">
+                                                <input id="dateEndInput" type="text" class="form-control datetimepicker-input" name="date_end" data-target="#datetimepicker_end"/>
+                                                <div class="input-group-append" data-target="#datetimepicker_end" data-toggle="datetimepicker">
+                                                    <div class="input-group-text"><i class="icon-calendar"></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="dateGroupSelect">@lang('main.grouping')</label>
+                                            <br>
+                                            <select id="dateGroupSelect" class="form-control date_group">
+                                                <option value="">---</option>
+                                                @foreach (config('sensors.groups') AS $group)
+                                                    <option value="{{$group}}">@lang('main.' . $group)</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-primary update" data-toggle="collapse" data-target="#collapseDateSelection">@lang('main.update')</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div id="chart-container" data-translations="{{base64_encode(json_encode(['overview' => __('main.overview'), 'lastUpdate' => __('main.lastUpdate')]))}}"></div>
                     </div>
                     <div class="modal-footer justify-content-between">
-                        <span class="type-switch">
-                            <button type="button" class="btn btn-dark switch" data-type="temperature"><span class="wi wi-thermometer"></span>@lang('main.temperature')</button>
-                            <button type="button" class="btn btn-dark switch" data-type="humidity"><span class="wi wi-humidity"></span>@lang('main.humidity')</button>
-                            <button type="button" class="btn btn-dark switch" data-type="pressure"><span class="wi wi-barometer"></span>@lang('main.pressure')</button>
-                        </span>
+                        <select class="selectpicker" data-style="btn-dark">
+                            <option data-icon="wi wi-thermometer" value="temperature">@lang('main.temperature')</option>
+                            <option data-icon="wi wi-humidity" value="humidity">@lang('main.humidity')</option>
+                            <option data-icon="wi wi-barometer" value="pressure">@lang('main.pressure')</option>
+                        </select>
                         <button type="button" class="btn btn-primary" data-dismiss="modal">@lang('main.close')</button>
                     </div>
                 </div>
