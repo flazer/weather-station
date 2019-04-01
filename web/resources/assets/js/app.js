@@ -322,10 +322,17 @@ var Engine = {
             $(this).removeAttr("style");
         });
 
+        var keySelect = Object.keys(data)[0];
+
         selectpicker.children('option').each( function() {
             var elem = $(this);
             if (typeof data[elem.val()] == 'undefined') {
                 elem.css("display","none");
+            }
+
+            //Set to datasets first entry
+            if (keySelect == elem.val()) {
+                selectpicker.val(keySelect);
             }
         });
 

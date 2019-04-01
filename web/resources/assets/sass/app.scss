@@ -61,6 +61,10 @@ body, html {
 
     h2 {
       font-size: 4rem;
+
+      @include media-breakpoint-down(md) {
+        font-size: 3rem;
+      }
     }
 
     h3 {
@@ -231,10 +235,7 @@ body, html {
         }
 
         button {
-          &:focus {
-            outline: none !important;
-            box-shadow: none !important;
-          }
+          outline: none !important;
 
           i {
             padding-right: 5px;
