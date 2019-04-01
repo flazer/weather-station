@@ -235,7 +235,10 @@ body, html {
         }
 
         button {
-          outline: none !important;
+          &:focus {
+            outline: none !important;
+            box-shadow: none !important;
+          }
 
           i {
             padding-right: 5px;
