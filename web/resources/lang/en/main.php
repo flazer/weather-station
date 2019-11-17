@@ -5,6 +5,7 @@ return [
     'humidity' => 'Humidity',
     'pressure' => 'Pressure',
     'temperature' => 'Temperature',
+    'battery' => 'Battery',
     'close' => 'Close',
     'details' => 'Details',
     'unknown' => 'Unknown',

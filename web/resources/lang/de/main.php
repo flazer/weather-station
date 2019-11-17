@@ -5,6 +5,7 @@ return [
     'humidity' => 'Luftfeuchtigkeit',
     'pressure' => 'Luftdruck',
     'temperature' => 'Temperatur',
+    'battery' => 'Batterie',
     'close' => 'Schließen',
     'details' => 'Details',
     'unknown' => 'Unbekannt',

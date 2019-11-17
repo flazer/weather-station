@@ -4,6 +4,7 @@
 
 // Vendors
 @import "vendor/weather-icons";
+@import "vendor/font-awesome/fontawesome";
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
@@ -180,18 +181,18 @@ body, html {
           }
 
           [data-toggle="collapse"]:after {
-            font-family: 'FontAwesome';
-            content: "\f053";
+            font-family: 'Font Awesome 5 Free';
+            content: "\f077";
             float: right;
             color: $dark-btn;
             font-size: 18px;
             line-height: 22px;
-            transform: rotate(-90deg);
+            transform: rotate(-180deg);
             transition: transform .3s ease-in-out;
           }
 
           [data-toggle="collapse"].collapsed:after {
-            transform: rotate(90deg);
+            transform: rotate(0deg);
           }
         }
 

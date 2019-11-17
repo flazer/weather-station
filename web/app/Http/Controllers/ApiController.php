@@ -36,7 +36,7 @@ class ApiController extends Controller
             $end_date = $this->_parseDate($request, 'date_end', '23:59:59');
             $group = $this->_parseGroup($request);
 
-            // Correct end_date if below start_date
+            //Correct end_date if below start_date
             if ($start_date > $end_date) {
                 $end_date = $start_date->copy()->addDay(1)->subSecond(1);
             }
@@ -101,7 +101,7 @@ class ApiController extends Controller
 
                     $values = $query->get();
 
-                    // Build new structure for easier frontend-handling
+                    //Build new structure for easier frontend-handling
                     $result['datasets'][$meta->slug]['unit'] = $meta->unit;
                     $result['datasets'][$meta->slug]['unit'] = $meta->unit;
                     $result['datasets'][$meta->slug]['type'] = $meta->name;
@@ -163,11 +163,13 @@ class ApiController extends Controller
 
                 foreach ($device->sensors AS $sensor) {
                     $latest = $sensor->latest();
-                    $data['sensors'][$sensor->id] = [
-                        'type' => $sensor->type,
-                        'value' => $latest->value,
-                        'time' => $latest->created_at
-                    ];
+                    if ($latest) {
+                        $data['sensors'][$sensor->id] = [
+                            'type' => $sensor->type,
+                            'value' => $latest->value,
+                            'time' => $latest->created_at
+                        ];
+                    }
                 }
 
                 return $data;

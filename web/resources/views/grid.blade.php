@@ -12,13 +12,17 @@
                         <h1>0 °</h1>
                         <div class="row">
                             <div class="additionals">
-                                <div>
+                                <div class="d-none">
                                     <span class="wi wi-humidity"></span>
                                     <span class="humidity value">-</span>
                                 </div>
-                                <div>
+                                <div class="d-none">
                                     <span class="wi wi-barometer"></span>
                                     <span class="pressure value">-</span>
+                                </div>
+                                <div class="d-none">
+                                    <span class="fas fa-battery-full"></span>
+                                    <span class="battery value">-</span>
                                 </div>
                             </div>
                         </div>
@@ -63,7 +67,7 @@
                                             <div class="input-group date datetimepicker" id="datetimepicker_start" data-format="{{config('sensors.format_datepicker')}}" data-target-input="nearest">
                                                 <input id="dateStartInput" type="text" class="form-control datetimepicker-input" name="date_start" data-target="#datetimepicker_start"/>
                                                 <div class="input-group-append" data-target="#datetimepicker_start" data-toggle="datetimepicker">
-                                                    <div class="input-group-text"><i class="icon-calendar"></i></div>
+                                                    <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -73,7 +77,7 @@
                                             <div class="input-group date datetimepicker" id="datetimepicker_end" data-format="{{config('sensors.format_datepicker')}}" data-target-input="nearest">
                                                 <input id="dateEndInput" type="text" class="form-control datetimepicker-input" name="date_end" data-target="#datetimepicker_end"/>
                                                 <div class="input-group-append" data-target="#datetimepicker_end" data-toggle="datetimepicker">
-                                                    <div class="input-group-text"><i class="icon-calendar"></i></div>
+                                                    <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -103,6 +107,7 @@
                             <option data-icon="wi wi-thermometer" value="temperature">@lang('main.temperature')</option>
                             <option data-icon="wi wi-humidity" value="humidity">@lang('main.humidity')</option>
                             <option data-icon="wi wi-barometer" value="pressure">@lang('main.pressure')</option>
+                            <option data-icon="fas fa-battery-full" value="battery">@lang('main.battery')</option>
                         </select>
                         <button type="button" class="btn btn-primary" data-dismiss="modal">@lang('main.close')</button>
                     </div>

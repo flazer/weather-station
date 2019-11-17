@@ -35,5 +35,13 @@ class CreateSensorTypes extends Seeder
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString()
         ]);
+
+        DB::table('sensor_types')->insert([
+            'slug' => 'battery',
+            'name' => 'Battery',
+            'unit' => '%',
+            'created_at' => Carbon::now()->toDateTimeString(),
+            'updated_at' => Carbon::now()->toDateTimeString()
+        ]);
     }
 }

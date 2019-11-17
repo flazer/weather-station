@@ -132,9 +132,18 @@ var Engine = {
                         case 'pressure':
                             selector = '.pressure.value';
                             break;
+
+                        case 'battery':
+                            selector = '.battery.value';
+                            break;
                     }
 
-                    device.object.find(selector).html(string);
+                    var sensorContainer = device.object.find(selector);
+                    var parentContainer = sensorContainer.parent();
+                    if (parentContainer.hasClass('d-none')) {
+                        parentContainer.removeClass('d-none');
+                    }
+                    sensorContainer.html(string);
                 }
             });
         }
