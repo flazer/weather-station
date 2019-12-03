@@ -25,24 +25,40 @@ body, html {
     justify-content: center;
     align-items: center;
 
-    &:nth-child(2) {
-      background: #ffb33c;
-    }
-
-    &:nth-child(3) {
+    &:nth-child(2n) {
       background: #2c6392;
     }
 
-    &:nth-child(4) {
+    &:nth-child(3n) {
+      background: #ffb33c;
+    }
+
+    &:nth-child(4n) {
       background: #ff934a;
     }
 
-    &:nth-child(5) {
-      background: #4fb600;
+    &:nth-child(5n) {
+      background: #b365dd;
     }
 
-    &:nth-child(5) {
+    &:nth-child(6n) {
+      background: #b640f6;
+    }
+
+    &:nth-child(7n) {
+      background: #66965e;
+    }
+
+    &:nth-child(8n) {
       background: #3e7c35;
+    }
+
+    &:nth-child(9n) {
+      background: #7c5435;
+    }
+
+    &:nth-child(10n) {
+      background: #96765e;
     }
 
     h1 {
