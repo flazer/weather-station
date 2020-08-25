@@ -20,7 +20,7 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
-        "highcharts": "^6.1.1",
+        "highcharts": "^7.2.2",
         "tempusdominus-bootstrap-4": "^5.1.2",
         "bootstrap-select": "^1.13.3"
     }
